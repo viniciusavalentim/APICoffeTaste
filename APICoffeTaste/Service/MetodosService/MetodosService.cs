@@ -54,13 +54,58 @@ namespace APICoffeTaste.Service.MetodosService
 
             return serviceResponse;
         }
-
-        public Task<ServiceResponse<List<MetodosModel>>> DeleteMetodos(int id)
+        public async Task<ServiceResponse<MetodosModel>> GetMetodoById(int id)
         {
-            throw new NotImplementedException();
-        }
+            ServiceResponse<MetodosModel> serviceResponse = new ServiceResponse<MetodosModel>();
+            try
+            {
+                MetodosModel metodos = _context.Metodos.FirstOrDefault(x => x.Id == id); //verificação / x = metodomodel que tem dentro do banco && faço o x.(todas as propriedades)id == (igual) id que eu recebi(acho q é como se fosse where)
 
-        public Task<ServiceResponse<MetodosModel>> GetMetodoById(int id)
+                if (metodos == null)
+                {
+                    serviceResponse.Dados = null;
+                    serviceResponse.Mensagem = "Id nao encontrado";
+                    serviceResponse.Sucesso = false;
+                }
+
+                serviceResponse.Dados = metodos;
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Mensagem = ex.Message;
+                serviceResponse.Sucesso = false;
+            }
+
+            return serviceResponse;
+        }
+        public async Task<ServiceResponse<List<MetodosModel>>> GetMetodosByVariacao(string variacao)
+        {
+            ServiceResponse<List<MetodosModel>> serviceResponse = new ServiceResponse<List<MetodosModel>>();
+            try
+            {
+                List<MetodosModel> variacaoMetodos = _context.Metodos.Where(x => x.Variacao == variacao).ToList();
+
+                if (variacaoMetodos == null)
+                {
+                    serviceResponse.Dados = null;
+                    serviceResponse.Mensagem = "Variacao nao encontrada";
+                    serviceResponse.Sucesso = false;
+                }
+                else
+                {
+                    serviceResponse.Dados = variacaoMetodos;
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Mensagem = ex.Message;
+                serviceResponse.Sucesso = false;
+            }
+            return serviceResponse;
+        }
+        public Task<ServiceResponse<List<MetodosModel>>> DeleteMetodos(int id)
         {
             throw new NotImplementedException();
         }
@@ -70,5 +115,6 @@ namespace APICoffeTaste.Service.MetodosService
             throw new NotImplementedException();
         }
 
+      
     }
 }
