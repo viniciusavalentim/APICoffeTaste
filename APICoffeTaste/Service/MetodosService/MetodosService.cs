@@ -1,5 +1,6 @@
 ﻿using APICoffeTaste.DataContext;
 using APICoffeTaste.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace APICoffeTaste.Service.MetodosService
 {
@@ -105,16 +106,56 @@ namespace APICoffeTaste.Service.MetodosService
             }
             return serviceResponse;
         }
-        public Task<ServiceResponse<List<MetodosModel>>> DeleteMetodos(int id)
+        public async Task<ServiceResponse<List<MetodosModel>>> UpdateMetodos(MetodosModel updateMetodo)
         {
-            throw new NotImplementedException();
-        }
+            ServiceResponse<List<MetodosModel>> serviceResponse = new ServiceResponse<List<MetodosModel>>();
+            try
+            {
+                MetodosModel metodos = _context.Metodos.AsNoTracking().FirstOrDefault(x => x.Id == updateMetodo.Id);
+                if (metodos == null)
+                {
+                    serviceResponse.Dados = null;
+                    serviceResponse.Mensagem = "Variacao nao encontrada";
+                    serviceResponse.Sucesso = false;
+                }
 
-        public Task<ServiceResponse<List<MetodosModel>>> UpdateMetodos(MetodosModel updateMetodo)
+                _context.Metodos.Update(updateMetodo);
+                await _context.SaveChangesAsync();  
+                serviceResponse.Dados = _context.Metodos.ToList();  
+
+            }
+            catch(Exception ex)
+            {
+                serviceResponse.Mensagem = ex.Message;
+                serviceResponse.Sucesso= false;
+            }
+            return serviceResponse;
+        }
+        public async Task<ServiceResponse<List<MetodosModel>>> DeleteMetodos(int id)
         {
-            throw new NotImplementedException();
-        }
+            ServiceResponse<List<MetodosModel>> serviceResponse = new ServiceResponse<List<MetodosModel>>();
+            try
+            {
+                MetodosModel metodos = _context.Metodos.FirstOrDefault(x => x.Id == id);
+                if (metodos == null)
+                {
+                    serviceResponse.Dados = null;
+                    serviceResponse.Mensagem = "Usuário nao encontrada";
+                    serviceResponse.Sucesso = false;
+                }
+                _context.Metodos.Remove(metodos);
+                await _context.SaveChangesAsync();
+                serviceResponse.Dados = _context.Metodos.ToList();
 
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Mensagem = ex.Message;
+                serviceResponse.Sucesso = false;
+            }
+
+            return serviceResponse;
+        }
       
     }
 }

@@ -36,8 +36,26 @@ namespace APICoffeTaste.Controllers
         [HttpPost]
         public async Task<ActionResult<ServiceResponse<List<MetodosModel>>>> CreateMetodos(MetodosModel novoMetodo)
         {
-            return Ok(await _metodosInterface.CreateMetodos(novoMetodo));
+            ServiceResponse<List<MetodosModel>> create = await _metodosInterface.CreateMetodos(novoMetodo);
+            return Ok(create);
         }
+
+        [HttpPut] //editar
+        public async Task<ActionResult<ServiceResponse<List<MetodosModel>>>> UpdateMetodos(MetodosModel editarMetodo)
+        {
+            ServiceResponse<List<MetodosModel>> update = await _metodosInterface.UpdateMetodos(editarMetodo);
+            return Ok(update);
+        }
+
+        [HttpDelete]
+        public async Task<ActionResult<ServiceResponse<List<MetodosModel>>>> DeleteMetodos(int id)
+        {
+            ServiceResponse<List<MetodosModel>> delete = await _metodosInterface.DeleteMetodos(id);
+            return Ok(delete);
+        }
+
+
+
 
 
     }
