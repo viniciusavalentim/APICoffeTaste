@@ -1,4 +1,5 @@
 using APICoffeTaste.DataContext;
+using APICoffeTaste.Service.MetodosService;
 using Microsoft.EntityFrameworkCore;
 
 namespace APICoffeTaste
@@ -15,6 +16,7 @@ namespace APICoffeTaste
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddScoped<IMetodosInterface, MetodosService>();//quando eu quiser fazer uma injeção de dependencia da minha interface, significa que eu vou poder usar os metodos do "metodosService"
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             {

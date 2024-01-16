@@ -9,17 +9,23 @@ namespace APICoffeTaste.Controllers
     [ApiController]
     public class MetodosController : ControllerBase
     {
-        private readonly MetodosService _metodosService;
-
-        public MetodosController(MetodosService metodosService)
+        private readonly IMetodosInterface _metodosInterface; //quando eu for buscar os metodos, eu vou buscar da minha interface e nao do service(na controller)
+        public MetodosController(IMetodosInterface metodos)
         {
-            _metodosService = metodosService;
+            _metodosInterface = metodos;
         }
 
         [HttpGet]
-        public async Task<ActionResult<MetodosModel>> GetMetodos() //ActionResult - é igual ao ok ou badrequest
+        public async Task<ActionResult<ServiceResponse<List<MetodosModel>>>> GetMetodos()
         {
-            return Ok(await _metodosService.GetMetodos());
+            return Ok(await _metodosInterface.GetMetodos());
         }
+
+        [HttpPost]
+        public async Task<ActionResult<ServiceResponse<List<MetodosModel>>>> CreateMetodos(MetodosModel novoMetodo)
+        {
+            return Ok(await _metodosInterface.CreateMetodos(novoMetodo));
+        }
+
     }
 }
