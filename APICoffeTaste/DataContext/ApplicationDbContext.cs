@@ -8,6 +8,10 @@ namespace APICoffeTaste.DataContext
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
         public DbSet<MetodosModel> Metodos { get; set; }
+        public DbSet<CafesModel> Cafes { get; set; }
+        public DbSet<ReceitasModel> Receitas { get; set; }
+
+
 
     }
 }

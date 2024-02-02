@@ -1,4 +1,5 @@
-﻿using APICoffeTaste.Models;
+﻿using APICoffeTaste.Dtos;
+using APICoffeTaste.Models;
 using APICoffeTaste.Service.MetodosService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -27,14 +28,9 @@ namespace APICoffeTaste.Controllers
             return Ok(await _metodosInterface.GetMetodoById(id));
         }
 
-        [HttpGet("ByVariacao/{variacao}")]
-        public async Task<ActionResult<List<MetodosModel>>> GetMetodosByVaiacao(string variacao)
-        {
-            return Ok(await _metodosInterface.GetMetodosByVariacao(variacao));
-        }
 
         [HttpPost]
-        public async Task<ActionResult<ServiceResponse<List<MetodosModel>>>> CreateMetodos(MetodosModel novoMetodo)
+        public async Task<ActionResult<ServiceResponse<List<MetodosModel>>>> CreateMetodos(DtoCreateMetodo novoMetodo)
         {
             ServiceResponse<List<MetodosModel>> create = await _metodosInterface.CreateMetodos(novoMetodo);
             return Ok(create);
