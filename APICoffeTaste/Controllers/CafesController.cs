@@ -1,4 +1,5 @@
-﻿using APICoffeTaste.Models;
+﻿using APICoffeTaste.Dtos;
+using APICoffeTaste.Models;
 using APICoffeTaste.Service.CafeService;
 using APICoffeTaste.Service.MetodosService;
 using Microsoft.AspNetCore.Http;
@@ -26,6 +27,12 @@ namespace APICoffeTaste.Controllers
         public async Task<ActionResult<ServiceResponse<List<CafesModel>>>> GetCafesByMetodo(int metodoId)
         {
             return Ok(await _cafesInterface.GetCafesByMetodo(metodoId));
+        }
+        [HttpPost("{metodoId}")]
+        public async Task<ActionResult<ServiceResponse<List<CafesModel>>>> CreateMetodos(DtoCreateCafe novoCafe, int metodoId)
+        {
+            ServiceResponse<List<CafesModel>> create = await _cafesInterface.CreateCafes(novoCafe, metodoId);
+            return Ok(create);
         }
     }
 }

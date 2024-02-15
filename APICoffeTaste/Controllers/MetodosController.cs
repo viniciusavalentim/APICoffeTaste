@@ -35,7 +35,6 @@ namespace APICoffeTaste.Controllers
             ServiceResponse<List<MetodosModel>> create = await _metodosInterface.CreateMetodos(novoMetodo);
             return Ok(create);
         }
-
         [HttpPut] //editar
         public async Task<ActionResult<ServiceResponse<List<MetodosModel>>>> UpdateMetodos(MetodosModel editarMetodo)
         {

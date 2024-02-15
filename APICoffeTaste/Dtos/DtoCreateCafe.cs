@@ -2,7 +2,7 @@
 {
     public class DtoCreateCafe
     {
-        public string? VariacaoDto { get; set; }
-        public DtoCreateReceita ReceitaDto { get; set; }  
+        public string? Variacao { get; set; }
+        public DtoCreateReceita? Receita { get; set; }  
     }
 }

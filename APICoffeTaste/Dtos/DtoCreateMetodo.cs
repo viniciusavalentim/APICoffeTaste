@@ -2,7 +2,7 @@
 {
     public class DtoCreateMetodo
     {
-        public string? MetodoDto { get; set; }
-        public List<DtoCreateCafe> CafesDto { get; set; }
+        public string? Metodos { get; set; }
+        public List<DtoCreateCafe> Cafes { get; set; }
     }
 }

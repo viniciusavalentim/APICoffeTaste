@@ -40,23 +40,24 @@ namespace APICoffeTaste.Service.MetodosService
             {
                 var novoMetodo = new MetodosModel
                 {
-                    Metodos = metodo.MetodoDto
+                    Metodos = metodo.Metodos
                 };
                 // Lista para armazenar os cafés criados
                 var cafes = new List<CafesModel>();
-                foreach (var cafeDto in metodo.CafesDto)
+                foreach (var cafeDto in metodo.Cafes)
                 {
                     var novoCafe = new CafesModel
                     {
-                        Variacao = cafeDto.VariacaoDto,
+                        Variacao = cafeDto.Variacao,
                         Metodo = novoMetodo
                     };
 
                     var novaReceita = new ReceitasModel
                     {
-                        QuantidadeDeCafe = cafeDto.ReceitaDto?.QuantidadeDeCafeDto ?? 0,
-                        QuantidadeDeAgua = cafeDto.ReceitaDto?.QuantidadeDeAguaDto ?? 0,
-                        Temperatura = cafeDto.ReceitaDto?.TemperaturaDto ?? 0,
+                        QuantidadeDeCafe = cafeDto.Receita?.QuantidadeDeCafe ?? 0,
+                        QuantidadeDeAgua = cafeDto.Receita?.QuantidadeDeAgua ?? 0,
+                        Temperatura = cafeDto.Receita?.Temperatura ?? 0,
+                        Granulometria = cafeDto.Receita?.Granulometria ?? 0,
                         Cafe = novoCafe
                     };
 
@@ -98,7 +99,7 @@ namespace APICoffeTaste.Service.MetodosService
             ServiceResponse<MetodosModel> serviceResponse = new ServiceResponse<MetodosModel>();
             try
             {
-                MetodosModel metodos = _context.Metodos.FirstOrDefault(x => x.Id == id); //verificação / x = metodomodel que tem dentro do banco && faço o x.(todas as propriedades)id == (igual) id que eu recebi(acho q é como se fosse where)
+                MetodosModel metodos = _context.Metodos.Include(x => x.Cafes).FirstOrDefault(x => x.Id == id); //verificação / x = metodomodel que tem dentro do banco && faço o x.(todas as propriedades)id == (igual) id que eu recebi(acho q é como se fosse where)
 
                 if (metodos == null)
                 {
