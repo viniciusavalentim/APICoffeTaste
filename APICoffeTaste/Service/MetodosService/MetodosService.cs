@@ -99,7 +99,7 @@ namespace APICoffeTaste.Service.MetodosService
             ServiceResponse<MetodosModel> serviceResponse = new ServiceResponse<MetodosModel>();
             try
             {
-                MetodosModel metodos = _context.Metodos.Include(x => x.Cafes).FirstOrDefault(x => x.Id == id); //verificação / x = metodomodel que tem dentro do banco && faço o x.(todas as propriedades)id == (igual) id que eu recebi(acho q é como se fosse where)
+                MetodosModel metodos = _context.Metodos.Include(x => x.Cafes).ThenInclude(cafe => cafe.Receita).FirstOrDefault(x => x.Id == id); //verificação / x = metodomodel que tem dentro do banco && faço o x.(todas as propriedades)id == (igual) id que eu recebi(acho q é como se fosse where)
 
                 if (metodos == null)
                 {

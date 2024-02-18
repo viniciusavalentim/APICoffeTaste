@@ -29,7 +29,7 @@ namespace APICoffeTaste.Controllers
             return Ok(await _cafesInterface.GetCafesByMetodo(metodoId));
         }
         [HttpPost("{metodoId}")]
-        public async Task<ActionResult<ServiceResponse<List<CafesModel>>>> CreateMetodos(DtoCreateCafe novoCafe, int metodoId)
+        public async Task<ActionResult<ServiceResponse<List<CafesModel>>>> CreateMetodos(int metodoId, DtoCreateCafe novoCafe)
         {
             ServiceResponse<List<CafesModel>> create = await _cafesInterface.CreateCafes(novoCafe, metodoId);
             return Ok(create);
