@@ -1,4 +1,4 @@
-﻿namespace APICoffeTaste.Models
+﻿namespace APICoffeeTaste.Models
 {
     public class ServiceResponse<T>
     {

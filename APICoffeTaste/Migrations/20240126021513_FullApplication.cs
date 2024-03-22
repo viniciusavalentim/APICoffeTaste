@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace APICoffeTaste.Migrations
+namespace APICoffeeTaste.Migrations
 {
     public partial class FullApplication : Migration
     {

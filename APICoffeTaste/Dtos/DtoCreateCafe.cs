@@ -1,4 +1,4 @@
-﻿namespace APICoffeTaste.Dtos
+﻿namespace APICoffeeTaste.Dtos
 {
     public class DtoCreateCafe
     {

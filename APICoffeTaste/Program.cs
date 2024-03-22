@@ -1,10 +1,11 @@
-using APICoffeTaste.DataContext;
-using APICoffeTaste.Service.CafeService;
-using APICoffeTaste.Service.MetodosService;
-using APICoffeTaste.Service.ReceitaService;
+using APICoffeeTaste.DataContext;
+using APICoffeeTaste.Service.BebidasGeladasService;
+using APICoffeeTaste.Service.CafeService;
+using APICoffeeTaste.Service.MetodosService;
+using APICoffeeTaste.Service.ReceitaService;
 using Microsoft.EntityFrameworkCore;
 
-namespace APICoffeTaste
+namespace APICoffeeTaste
 {
     public class Program
     {
@@ -21,6 +22,8 @@ namespace APICoffeTaste
             builder.Services.AddScoped<IMetodosInterface, MetodosService>();//quando eu quiser fazer uma injeção de dependencia da minha interface, significa que eu vou poder usar os metodos do "metodosService"
             builder.Services.AddScoped<ICafesInterface, CafesService>();//quando eu quiser fazer uma injeção de dependencia da minha interface, significa que eu vou poder usar os metodos do "metodosService"
             builder.Services.AddScoped<IReceitaInteface, ReceitaService>();//quando eu quiser fazer uma injeção de dependencia da minha interface, significa que eu vou poder usar os metodos do "metodosService"
+            builder.Services.AddScoped<IBebidasGeladasInterface, BebidasGeladasService>();//quando eu quiser fazer uma injeção de dependencia da minha interface, significa que eu vou poder usar os metodos do "metodosService"
+
 
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -30,12 +33,9 @@ namespace APICoffeTaste
 
             var app = builder.Build();
 
-            // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
-            {
                 app.UseSwagger();
                 app.UseSwaggerUI();
-            }
+    
 
             app.UseHttpsRedirection();
 

@@ -1,10 +1,10 @@
-﻿using APICoffeTaste.Dtos;
-using APICoffeTaste.Models;
-using APICoffeTaste.Service.MetodosService;
+﻿using APICoffeeTaste.Dtos;
+using APICoffeeTaste.Models;
+using APICoffeeTaste.Service.MetodosService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace APICoffeTaste.Controllers
+namespace APICoffeeTaste.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -27,7 +27,7 @@ namespace APICoffeTaste.Controllers
         {
             return Ok(await _metodosInterface.GetMetodoById(id));
         }
-
+    
 
         [HttpPost]
         public async Task<ActionResult<ServiceResponse<List<MetodosModel>>>> CreateMetodos(DtoCreateMetodo novoMetodo)

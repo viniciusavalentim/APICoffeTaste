@@ -1,7 +1,7 @@
-﻿using APICoffeTaste.Dtos;
-using APICoffeTaste.Models;
+﻿using APICoffeeTaste.Dtos;
+using APICoffeeTaste.Models;
 
-namespace APICoffeTaste.Service.CafeService
+namespace APICoffeeTaste.Service.CafeService
 {
     public interface ICafesInterface
     {

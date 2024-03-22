@@ -1,8 +1,8 @@
-﻿using APICoffeTaste.DataContext;
-using APICoffeTaste.Models;
+﻿using APICoffeeTaste.DataContext;
+using APICoffeeTaste.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace APICoffeTaste.Service.ReceitaService
+namespace APICoffeeTaste.Service.ReceitaService
 {
     public class ReceitaService : IReceitaInteface
     {

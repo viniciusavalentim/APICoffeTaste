@@ -1,9 +1,9 @@
-﻿using APICoffeTaste.DataContext;
-using APICoffeTaste.Dtos;
-using APICoffeTaste.Models;
+﻿using APICoffeeTaste.DataContext;
+using APICoffeeTaste.Dtos;
+using APICoffeeTaste.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace APICoffeTaste.Service.CafeService
+namespace APICoffeeTaste.Service.CafeService
 {
     public class CafesService : ICafesInterface
     {

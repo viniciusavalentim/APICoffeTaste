@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace APICoffeeTaste.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240126021513_FullApplication")]
-    partial class FullApplication
+    [Migration("20240321104353_AdicionadoPropriedadeQuantidade")]
+    partial class AdicionadoPropriedadeQuantidade
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,7 +23,26 @@ namespace APICoffeeTaste.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("APICoffeTaste.Models.CafesModel", b =>
+            modelBuilder.Entity("APICoffeeTaste.Models.BebidasGeladasModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Nome")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Observacoes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BebidasGeladas");
+                });
+
+            modelBuilder.Entity("APICoffeeTaste.Models.CafesModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -44,7 +63,34 @@ namespace APICoffeeTaste.Migrations
                     b.ToTable("Cafes");
                 });
 
-            modelBuilder.Entity("APICoffeTaste.Models.MetodosModel", b =>
+            modelBuilder.Entity("APICoffeeTaste.Models.IngredientesModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("BebidasGeladasId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nome")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Quantidade")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Unidade")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BebidasGeladasId");
+
+                    b.ToTable("Ingredientes");
+                });
+
+            modelBuilder.Entity("APICoffeeTaste.Models.MetodosModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -60,7 +106,7 @@ namespace APICoffeeTaste.Migrations
                     b.ToTable("Metodos");
                 });
 
-            modelBuilder.Entity("APICoffeTaste.Models.ReceitasModel", b =>
+            modelBuilder.Entity("APICoffeeTaste.Models.ReceitasModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -70,6 +116,9 @@ namespace APICoffeeTaste.Migrations
 
                     b.Property<int>("CafeId")
                         .HasColumnType("int");
+
+                    b.Property<float>("Granulometria")
+                        .HasColumnType("real");
 
                     b.Property<float>("QuantidadeDeAgua")
                         .HasColumnType("real");
@@ -88,9 +137,9 @@ namespace APICoffeeTaste.Migrations
                     b.ToTable("Receitas");
                 });
 
-            modelBuilder.Entity("APICoffeTaste.Models.CafesModel", b =>
+            modelBuilder.Entity("APICoffeeTaste.Models.CafesModel", b =>
                 {
-                    b.HasOne("APICoffeTaste.Models.MetodosModel", "Metodo")
+                    b.HasOne("APICoffeeTaste.Models.MetodosModel", "Metodo")
                         .WithMany("Cafes")
                         .HasForeignKey("MetodoId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -99,23 +148,39 @@ namespace APICoffeeTaste.Migrations
                     b.Navigation("Metodo");
                 });
 
-            modelBuilder.Entity("APICoffeTaste.Models.ReceitasModel", b =>
+            modelBuilder.Entity("APICoffeeTaste.Models.IngredientesModel", b =>
                 {
-                    b.HasOne("APICoffeTaste.Models.CafesModel", "Cafe")
+                    b.HasOne("APICoffeeTaste.Models.BebidasGeladasModel", "BebidasGeladas")
+                        .WithMany("Ingredientes")
+                        .HasForeignKey("BebidasGeladasId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("BebidasGeladas");
+                });
+
+            modelBuilder.Entity("APICoffeeTaste.Models.ReceitasModel", b =>
+                {
+                    b.HasOne("APICoffeeTaste.Models.CafesModel", "Cafe")
                         .WithOne("Receita")
-                        .HasForeignKey("APICoffeTaste.Models.ReceitasModel", "CafeId")
+                        .HasForeignKey("APICoffeeTaste.Models.ReceitasModel", "CafeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Cafe");
                 });
 
-            modelBuilder.Entity("APICoffeTaste.Models.CafesModel", b =>
+            modelBuilder.Entity("APICoffeeTaste.Models.BebidasGeladasModel", b =>
+                {
+                    b.Navigation("Ingredientes");
+                });
+
+            modelBuilder.Entity("APICoffeeTaste.Models.CafesModel", b =>
                 {
                     b.Navigation("Receita");
                 });
 
-            modelBuilder.Entity("APICoffeTaste.Models.MetodosModel", b =>
+            modelBuilder.Entity("APICoffeeTaste.Models.MetodosModel", b =>
                 {
                     b.Navigation("Cafes");
                 });
