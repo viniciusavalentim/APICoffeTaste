@@ -1,11 +1,11 @@
-﻿using APICoffeTaste.Models;
-using APICoffeTaste.Service.CafeService;
-using APICoffeTaste.Service.MetodosService;
-using APICoffeTaste.Service.ReceitaService;
+﻿using APICoffeeTaste.Models;
+using APICoffeeTaste.Service.CafeService;
+using APICoffeeTaste.Service.MetodosService;
+using APICoffeeTaste.Service.ReceitaService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace APICoffeTaste.Controllers
+namespace APICoffeeTaste.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

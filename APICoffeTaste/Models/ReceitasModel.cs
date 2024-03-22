@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace APICoffeTaste.Models
+namespace APICoffeeTaste.Models
 {
     public class ReceitasModel
     {

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace APICoffeTaste.Models
+namespace APICoffeeTaste.Models
 {
     public class MetodosModel
     {

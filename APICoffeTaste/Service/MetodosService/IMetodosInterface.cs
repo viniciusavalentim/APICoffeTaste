@@ -1,7 +1,7 @@
-﻿using APICoffeTaste.Dtos;
-using APICoffeTaste.Models;
+﻿using APICoffeeTaste.Dtos;
+using APICoffeeTaste.Models;
 
-namespace APICoffeTaste.Service.MetodosService
+namespace APICoffeeTaste.Service.MetodosService
 {
     public interface IMetodosInterface
     {
@@ -14,3 +14,9 @@ namespace APICoffeTaste.Service.MetodosService
 
     }
 }
+
+
+
+
+
+

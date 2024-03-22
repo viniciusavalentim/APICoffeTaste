@@ -1,6 +1,6 @@
-﻿using APICoffeTaste.Models;
+﻿using APICoffeeTaste.Models;
 
-namespace APICoffeTaste.Service.ReceitaService
+namespace APICoffeeTaste.Service.ReceitaService
 {
     public interface IReceitaInteface
     {

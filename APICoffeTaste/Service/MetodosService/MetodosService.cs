@@ -1,13 +1,16 @@
-﻿using APICoffeTaste.DataContext;
-using APICoffeTaste.Dtos;
-using APICoffeTaste.Models;
+﻿using APICoffeeTaste.Controllers;
+using APICoffeeTaste.DataContext;
+using APICoffeeTaste.Dtos;
+using APICoffeeTaste.Models;
+using APICoffeeTaste.Service.MetodosService;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace APICoffeTaste.Service.MetodosService
+namespace APICoffeeTaste.Service.MetodosService
 {
     public class MetodosService : IMetodosInterface
     {
-        private readonly ApplicationDbContext _context; //isso é para ter acesso ao banco de dados e atabela que foi criada(nesse caso o metodos)
+        private readonly ApplicationDbContext _context; //isso é para ter acesso ao banco de dados e a tabela que foi criada(nesse caso o metodos)
         public MetodosService(ApplicationDbContext context) 
         {
             _context = context;
