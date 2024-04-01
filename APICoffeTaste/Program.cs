@@ -1,6 +1,7 @@
 using APICoffeeTaste.DataContext;
 using APICoffeeTaste.Service.BebidasGeladasService;
 using APICoffeeTaste.Service.CafeService;
+using APICoffeeTaste.Service.HotDrinksService;
 using APICoffeeTaste.Service.MetodosService;
 using APICoffeeTaste.Service.ReceitaService;
 using Microsoft.EntityFrameworkCore;
@@ -22,7 +23,8 @@ namespace APICoffeeTaste
             builder.Services.AddScoped<IMetodosInterface, MetodosService>();//quando eu quiser fazer uma injeção de dependencia da minha interface, significa que eu vou poder usar os metodos do "metodosService"
             builder.Services.AddScoped<ICafesInterface, CafesService>();//quando eu quiser fazer uma injeção de dependencia da minha interface, significa que eu vou poder usar os metodos do "metodosService"
             builder.Services.AddScoped<IReceitaInteface, ReceitaService>();//quando eu quiser fazer uma injeção de dependencia da minha interface, significa que eu vou poder usar os metodos do "metodosService"
-            builder.Services.AddScoped<IBebidasGeladasInterface, BebidasGeladasService>();//quando eu quiser fazer uma injeção de dependencia da minha interface, significa que eu vou poder usar os metodos do "metodosService"
+            builder.Services.AddScoped<IIcedDrinksInterface, BebidasGeladasService>();//quando eu quiser fazer uma injeção de dependencia da minha interface, significa que eu vou poder usar os metodos do "metodosService"
+            builder.Services.AddScoped<IHotDrinksInterface, HotDrinksService>();//quando eu quiser fazer uma injeção de dependencia da minha interface, significa que eu vou poder usar os metodos do "metodosService"
 
 
 

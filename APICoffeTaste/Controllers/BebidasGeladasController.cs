@@ -9,20 +9,20 @@ namespace APICoffeeTaste.Controllers
     [ApiController]
     public class BebidasGeladasController : ControllerBase
     {
-        private readonly IBebidasGeladasInterface _bebidasGeladasInterface;
-        public BebidasGeladasController(IBebidasGeladasInterface bebidasGeladasInterface)
+        private readonly IIcedDrinksInterface _bebidasGeladasInterface;
+        public BebidasGeladasController(IIcedDrinksInterface bebidasGeladasInterface)
         {
             _bebidasGeladasInterface = bebidasGeladasInterface;
         }
 
         [HttpGet]
-        public async Task<ActionResult<ServiceResponse<List<BebidasGeladasModel>>>> GetBebidasGeladas()
+        public async Task<ActionResult<ServiceResponse<List<IcedDrinksModel>>>> GetBebidasGeladas()
         {
             return Ok( await _bebidasGeladasInterface.GetBebidasGeladas());
         }
 
         [HttpGet("{bebidaId}")]
-        public async Task<ActionResult<ServiceResponse<List<IngredientesModel>>>> GetIngredientesByBebidasGeladas(int bebidaId)
+        public async Task<ActionResult<ServiceResponse<List<IngredientsModel>>>> GetIngredientesByBebidasGeladas(int bebidaId)
         {
             return Ok(await _bebidasGeladasInterface.GetIngredienteByBebidasGeladas(bebidaId));
         }

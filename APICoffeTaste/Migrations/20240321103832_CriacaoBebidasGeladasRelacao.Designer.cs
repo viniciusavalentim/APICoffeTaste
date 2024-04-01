@@ -23,7 +23,7 @@ namespace APICoffeeTaste.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("APICoffeeTaste.Models.BebidasGeladasModel", b =>
+            modelBuilder.Entity("APICoffeeTaste.Models.IcedDrinksModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -31,7 +31,7 @@ namespace APICoffeeTaste.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<string>("Nome")
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Observacoes")
@@ -63,7 +63,7 @@ namespace APICoffeeTaste.Migrations
                     b.ToTable("Cafes");
                 });
 
-            modelBuilder.Entity("APICoffeeTaste.Models.IngredientesModel", b =>
+            modelBuilder.Entity("APICoffeeTaste.Models.IngredientsModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -74,7 +74,7 @@ namespace APICoffeeTaste.Migrations
                     b.Property<int>("BebidasGeladasId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Nome")
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Unidade")
@@ -145,9 +145,9 @@ namespace APICoffeeTaste.Migrations
                     b.Navigation("Metodo");
                 });
 
-            modelBuilder.Entity("APICoffeeTaste.Models.IngredientesModel", b =>
+            modelBuilder.Entity("APICoffeeTaste.Models.IngredientsModel", b =>
                 {
-                    b.HasOne("APICoffeeTaste.Models.BebidasGeladasModel", "BebidasGeladas")
+                    b.HasOne("APICoffeeTaste.Models.IcedDrinksModel", "BebidasGeladas")
                         .WithMany("Ingredientes")
                         .HasForeignKey("BebidasGeladasId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -167,7 +167,7 @@ namespace APICoffeeTaste.Migrations
                     b.Navigation("Cafe");
                 });
 
-            modelBuilder.Entity("APICoffeeTaste.Models.BebidasGeladasModel", b =>
+            modelBuilder.Entity("APICoffeeTaste.Models.IcedDrinksModel", b =>
                 {
                     b.Navigation("Ingredientes");
                 });
