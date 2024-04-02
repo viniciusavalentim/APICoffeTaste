@@ -15,7 +15,6 @@ namespace APICoffeeTaste.Service.MetodosService
         {
             _context = context;
         }
-
         
         public async Task<ServiceResponse<List<MetodosModel>>> GetMetodos() //preciso criar um elemento do tipo service response que vai retornar uma lista de metodos
         {

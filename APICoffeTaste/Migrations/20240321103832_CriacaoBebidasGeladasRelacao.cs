@@ -9,7 +9,7 @@ namespace APICoffeeTaste.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "BebidasGeladas",
+                name: "IcedDrinksService",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -38,7 +38,7 @@ namespace APICoffeeTaste.Migrations
                     table.ForeignKey(
                         name: "FK_Ingredientes_BebidasGeladas_BebidasGeladasId",
                         column: x => x.BebidasGeladasId,
-                        principalTable: "BebidasGeladas",
+                        principalTable: "IcedDrinksService",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -55,7 +55,7 @@ namespace APICoffeeTaste.Migrations
                 name: "Ingredientes");
 
             migrationBuilder.DropTable(
-                name: "BebidasGeladas");
+                name: "IcedDrinksService");
         }
     }
 }

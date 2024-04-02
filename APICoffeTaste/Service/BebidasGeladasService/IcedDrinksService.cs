@@ -4,10 +4,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace APICoffeeTaste.Service.BebidasGeladasService
 {
-    public class BebidasGeladasService : IIcedDrinksInterface
+    public class IcedDrinksService : IIcedDrinksInterface
     {
         private readonly ApplicationDbContext _context;
-        public BebidasGeladasService(ApplicationDbContext context)
+        public IcedDrinksService(ApplicationDbContext context)
         {
             _context = context;
         }
@@ -18,7 +18,7 @@ namespace APICoffeeTaste.Service.BebidasGeladasService
            ServiceResponse<List<IcedDrinksModel>> serviceResponse = new ServiceResponse<List<IcedDrinksModel>>();
             try
             {
-                serviceResponse.Dados = await _context.BebidasGeladas.Include(b => b.Ingredientes).ToListAsync();
+                serviceResponse.Dados = await _context.IcedDrinks.Include(b => b.Ingredientes).ToListAsync();
                 if (serviceResponse.Dados.Count == 0)
                 {
                     serviceResponse.Mensagem = "Nenhum dado foi encontrado!";
@@ -35,8 +35,6 @@ namespace APICoffeeTaste.Service.BebidasGeladasService
         {
             throw new NotImplementedException();
         }
-
-
 
 
         public Task<ServiceResponse<List<IcedDrinksModel>>> CreateBebidasGeladas()

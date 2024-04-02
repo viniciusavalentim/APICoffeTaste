@@ -37,7 +37,7 @@ namespace APICoffeeTaste.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("BebidasGeladas");
+                    b.ToTable("IcedDrinksService");
                 });
 
             modelBuilder.Entity("APICoffeeTaste.Models.CafesModel", b =>
@@ -148,13 +148,13 @@ namespace APICoffeeTaste.Migrations
 
             modelBuilder.Entity("APICoffeeTaste.Models.IngredientsModel", b =>
                 {
-                    b.HasOne("APICoffeeTaste.Models.IcedDrinksModel", "BebidasGeladas")
+                    b.HasOne("APICoffeeTaste.Models.IcedDrinksModel", "IcedDrinksService")
                         .WithMany("Ingredientes")
                         .HasForeignKey("BebidasGeladasId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("BebidasGeladas");
+                    b.Navigation("IcedDrinksService");
                 });
 
             modelBuilder.Entity("APICoffeeTaste.Models.ReceitasModel", b =>
