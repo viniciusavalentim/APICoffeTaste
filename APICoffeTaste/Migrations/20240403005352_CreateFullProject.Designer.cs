@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace APICoffeeTaste.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240321104353_AdicionadoPropriedadeQuantidade")]
-    partial class AdicionadoPropriedadeQuantidade
+    [Migration("20240403005352_CreateFullProject")]
+    partial class CreateFullProject
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -22,25 +22,6 @@ namespace APICoffeeTaste.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("APICoffeeTaste.Models.IcedDrinksModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Observacoes")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BebidasGeladas");
-                });
 
             modelBuilder.Entity("APICoffeeTaste.Models.CafesModel", b =>
                 {
@@ -63,6 +44,44 @@ namespace APICoffeeTaste.Migrations
                     b.ToTable("Cafes");
                 });
 
+            modelBuilder.Entity("APICoffeeTaste.Models.HotDrinksModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Observacoes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("HotDrinks");
+                });
+
+            modelBuilder.Entity("APICoffeeTaste.Models.IcedDrinksModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Observacoes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("IcedDrinks");
+                });
+
             modelBuilder.Entity("APICoffeeTaste.Models.IngredientsModel", b =>
                 {
                     b.Property<int>("Id")
@@ -71,21 +90,26 @@ namespace APICoffeeTaste.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("BebidasGeladasId")
+                    b.Property<int>("HotDrinksId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("IcedDrinksId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<double>("Quantidade")
+                    b.Property<double>("Quantity")
                         .HasColumnType("float");
 
-                    b.Property<string>("Unidade")
+                    b.Property<string>("Unit")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BebidasGeladasId");
+                    b.HasIndex("HotDrinksId");
+
+                    b.HasIndex("IcedDrinksId");
 
                     b.ToTable("Ingredientes");
                 });
@@ -150,13 +174,21 @@ namespace APICoffeeTaste.Migrations
 
             modelBuilder.Entity("APICoffeeTaste.Models.IngredientsModel", b =>
                 {
-                    b.HasOne("APICoffeeTaste.Models.IcedDrinksModel", "BebidasGeladas")
+                    b.HasOne("APICoffeeTaste.Models.HotDrinksModel", "HotDrinks")
                         .WithMany("Ingredientes")
-                        .HasForeignKey("BebidasGeladasId")
+                        .HasForeignKey("HotDrinksId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("BebidasGeladas");
+                    b.HasOne("APICoffeeTaste.Models.IcedDrinksModel", "IcedDrinks")
+                        .WithMany("Ingredientes")
+                        .HasForeignKey("IcedDrinksId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("HotDrinks");
+
+                    b.Navigation("IcedDrinks");
                 });
 
             modelBuilder.Entity("APICoffeeTaste.Models.ReceitasModel", b =>
@@ -170,14 +202,19 @@ namespace APICoffeeTaste.Migrations
                     b.Navigation("Cafe");
                 });
 
-            modelBuilder.Entity("APICoffeeTaste.Models.IcedDrinksModel", b =>
+            modelBuilder.Entity("APICoffeeTaste.Models.CafesModel", b =>
+                {
+                    b.Navigation("Receita");
+                });
+
+            modelBuilder.Entity("APICoffeeTaste.Models.HotDrinksModel", b =>
                 {
                     b.Navigation("Ingredientes");
                 });
 
-            modelBuilder.Entity("APICoffeeTaste.Models.CafesModel", b =>
+            modelBuilder.Entity("APICoffeeTaste.Models.IcedDrinksModel", b =>
                 {
-                    b.Navigation("Receita");
+                    b.Navigation("Ingredientes");
                 });
 
             modelBuilder.Entity("APICoffeeTaste.Models.MetodosModel", b =>

@@ -18,13 +18,13 @@ namespace APICoffeeTaste.Controllers
         [HttpGet]
         public async Task<ActionResult<ServiceResponse<List<IcedDrinksModel>>>> GetBebidasGeladas()
         {
-            return Ok( await _bebidasGeladasInterface.GetBebidasGeladas());
+            return Ok( await _bebidasGeladasInterface.GetIcedDrinks());
         }
 
         [HttpGet("{bebidaId}")]
         public async Task<ActionResult<ServiceResponse<List<IngredientsModel>>>> GetIngredientesByBebidasGeladas(int bebidaId)
         {
-            return Ok(await _bebidasGeladasInterface.GetIngredienteByBebidasGeladas(bebidaId));
+            return Ok(await _bebidasGeladasInterface.GetIngredientsByIcedDrinks(bebidaId));
         }
     }
 }

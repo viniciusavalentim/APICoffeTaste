@@ -4,11 +4,11 @@ namespace APICoffeeTaste.Service.HotDrinksService
 {
     public interface IHotDrinksInterface
     {
-        Task<ServiceResponse<List<HotDrinksService>>> GetHotDrinks();
-        Task<ServiceResponse<List<HotDrinksService>>> CreateHotDrinks();
-        Task<ServiceResponse<List<HotDrinksService>>> UpdateHotDrinks();
-        Task<ServiceResponse<List<HotDrinksService>>> DeleteHotDrinks();
-        Task<ServiceResponse<List<HotDrinksService>>> GetHotDrinksById(int id);
+        Task<ServiceResponse<List<HotDrinksModel>>> GetHotDrinks();
+        Task<ServiceResponse<List<HotDrinksModel>>> CreateHotDrinks();
+        Task<ServiceResponse<List<HotDrinksModel>>> UpdateHotDrinks();
+        Task<ServiceResponse<List<HotDrinksModel>>> DeleteHotDrinks();
+        Task<ServiceResponse<List<HotDrinksModel>>> GetHotDrinksById(int id);
         Task<ServiceResponse<List<IngredientsModel>>> GetIngredientByHotDrinksID(int id);
     }
 }
