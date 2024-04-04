@@ -31,8 +31,6 @@ namespace APICoffeeTaste.Service.HotDrinksService
             return serviceResponse;
         }
 
-
-
         public Task<ServiceResponse<List<HotDrinksModel>>> CreateHotDrinks()
         {
             throw new NotImplementedException();
@@ -48,12 +46,12 @@ namespace APICoffeeTaste.Service.HotDrinksService
             throw new NotImplementedException();
         }
 
-        public Task<ServiceResponse<List<IngredientsModel>>> GetIngredientByHotDrinksID(int id)
+        public async Task<ServiceResponse<List<IngredientsModel>>> GetIngredientByHotDrinksID(int id)
         {
             ServiceResponse<List<IngredientsModel>> serviceResponse = new ServiceResponse<List<IngredientsModel>>();
             try
             {
-                List<IngredientsModel> ingredientes = _context.Ingredientes.Where(x => x.BebidasGeladasId == id).ToList();
+                List<IngredientsModel> ingredientes = _context.Ingredientes.Where(x => x.HotDrinksId == id).ToList();
 
                 if (ingredientes == null)
                 {
@@ -75,3 +73,5 @@ namespace APICoffeeTaste.Service.HotDrinksService
         {
             throw new NotImplementedException();
         }
+    }
+}

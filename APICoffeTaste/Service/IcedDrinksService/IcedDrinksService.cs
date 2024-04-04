@@ -13,7 +13,7 @@ namespace APICoffeeTaste.Service.BebidasGeladasService
         }
 
 
-        public async Task<ServiceResponse<List<IcedDrinksModel>>> GetBebidasGeladas()
+        public async Task<ServiceResponse<List<IcedDrinksModel>>> GetIcedDrinks()
         {
            ServiceResponse<List<IcedDrinksModel>> serviceResponse = new ServiceResponse<List<IcedDrinksModel>>();
             try
@@ -52,12 +52,12 @@ namespace APICoffeeTaste.Service.BebidasGeladasService
         {
             throw new NotImplementedException();
         }
-        public async Task<ServiceResponse<List<IngredientsModel>>> GetIngredienteByBebidasGeladas(int id)
+        public async Task<ServiceResponse<List<IngredientsModel>>> GetIngredientsByIcedDrinks(int id)
         {
             ServiceResponse<List<IngredientsModel>> serviceResponse = new ServiceResponse<List<IngredientsModel>>();
             try
             {
-                List<IngredientsModel> ingredientes =  _context.Ingredientes.Where(x => x.BebidasGeladasId == id).ToList();
+                List<IngredientsModel> ingredientes =  _context.Ingredientes.Where(x => x.IcedDrinksId == id).ToList();
 
                 if (ingredientes == null)
                 {
