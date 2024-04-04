@@ -63,14 +63,32 @@ namespace APICoffeeTaste.Service.BebidasGeladasService
 
                 foreach(DtoCreateIngredients dtoIngredient in icedDrinkCeate.Ingredientes)
                 {
+                    IngredientsModel newIngredient = new IngredientsModel
+                    {
+                        Name = dtoIngredient.Name,
+                        Quantity = dtoIngredient.Quantity,
+                        Unit = dtoIngredient.Unit,
+                        IcedDrinks = newIcedDrink
+                    };
 
+                    newIngredients.Add(newIngredient);
+                    _context.Ingredientes.Add(newIngredient);
                 }
 
+                newIcedDrink.Ingredientes = newIngredients;
+                if(newIcedDrink == null)
+                {
+                    serviceResponse.Mensagem = "Not Found!";
+                }
 
+                _context.IcedDrinks.Add(newIcedDrink);
+                await _context.SaveChangesAsync();
+                serviceResponse.Dados = await _context.IcedDrinks.Include(i => i.Ingredientes).ToListAsync();   
             }
             catch (Exception ex)
             {
-
+                serviceResponse.Sucesso = false;
+                serviceResponse.Mensagem = ex.Message;
             }
             return serviceResponse;
         }
