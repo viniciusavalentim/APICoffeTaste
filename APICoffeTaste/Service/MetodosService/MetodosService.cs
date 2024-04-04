@@ -46,6 +46,7 @@ namespace APICoffeeTaste.Service.MetodosService
                 };
                 // Lista para armazenar os cafés criados
                 var cafes = new List<CafesModel>();
+
                 foreach (var cafeDto in metodo.Cafes)
                 {
                     var novoCafe = new CafesModel
