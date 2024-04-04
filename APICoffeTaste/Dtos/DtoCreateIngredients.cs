@@ -3,7 +3,7 @@
     public class DtoCreateIngredients
     {
         public string? Name { get; set; }
-        public double Quantidade { get; set; }
-        public string? Unidade { get; set; }
+        public double Quantity { get; set; }
+        public string? Unit { get; set; }
     }
 }
