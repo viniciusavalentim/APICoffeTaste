@@ -12,7 +12,7 @@ namespace APICoffeeTaste.DataContext
         public DbSet<ReceitasModel> Receitas { get; set; }
         public DbSet<IcedDrinksModel> IcedDrinks { get; set; }
         public DbSet<HotDrinksModel> HotDrinks { get; set; }
-        public DbSet<IngredientsModel> Ingredientes { get; set; }
+        public DbSet<IngredientsIcedDrinksModel> IngredientesIcedDrinks { get; set; }
 
 
     }

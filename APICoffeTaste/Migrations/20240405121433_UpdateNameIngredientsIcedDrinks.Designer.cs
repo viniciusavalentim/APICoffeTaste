@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace APICoffeeTaste.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240403005352_CreateFullProject")]
-    partial class CreateFullProject
+    [Migration("20240405121433_UpdateNameIngredientsIcedDrinks")]
+    partial class UpdateNameIngredientsIcedDrinks
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -82,16 +82,13 @@ namespace APICoffeeTaste.Migrations
                     b.ToTable("IcedDrinks");
                 });
 
-            modelBuilder.Entity("APICoffeeTaste.Models.IngredientsModel", b =>
+            modelBuilder.Entity("APICoffeeTaste.Models.IngredientsIcedDrinksModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("HotDrinksId")
-                        .HasColumnType("int");
 
                     b.Property<int>("IcedDrinksId")
                         .HasColumnType("int");
@@ -107,11 +104,9 @@ namespace APICoffeeTaste.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("HotDrinksId");
-
                     b.HasIndex("IcedDrinksId");
 
-                    b.ToTable("Ingredientes");
+                    b.ToTable("IngredientesIcedDrinks");
                 });
 
             modelBuilder.Entity("APICoffeeTaste.Models.MetodosModel", b =>
@@ -172,21 +167,13 @@ namespace APICoffeeTaste.Migrations
                     b.Navigation("Metodo");
                 });
 
-            modelBuilder.Entity("APICoffeeTaste.Models.IngredientsModel", b =>
+            modelBuilder.Entity("APICoffeeTaste.Models.IngredientsIcedDrinksModel", b =>
                 {
-                    b.HasOne("APICoffeeTaste.Models.HotDrinksModel", "HotDrinks")
-                        .WithMany("Ingredientes")
-                        .HasForeignKey("HotDrinksId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("APICoffeeTaste.Models.IcedDrinksModel", "IcedDrinks")
                         .WithMany("Ingredientes")
                         .HasForeignKey("IcedDrinksId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("HotDrinks");
 
                     b.Navigation("IcedDrinks");
                 });
@@ -205,11 +192,6 @@ namespace APICoffeeTaste.Migrations
             modelBuilder.Entity("APICoffeeTaste.Models.CafesModel", b =>
                 {
                     b.Navigation("Receita");
-                });
-
-            modelBuilder.Entity("APICoffeeTaste.Models.HotDrinksModel", b =>
-                {
-                    b.Navigation("Ingredientes");
                 });
 
             modelBuilder.Entity("APICoffeeTaste.Models.IcedDrinksModel", b =>
