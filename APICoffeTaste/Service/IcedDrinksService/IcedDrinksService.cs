@@ -3,7 +3,7 @@ using APICoffeeTaste.Dtos;
 using APICoffeeTaste.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace APICoffeeTaste.Service.BebidasGeladasService
+namespace APICoffeeTaste.Service.IcedDrinksService
 {
     public class IcedDrinksService : IIcedDrinksInterface
     {
@@ -12,7 +12,6 @@ namespace APICoffeeTaste.Service.BebidasGeladasService
         {
             _context = context;
         }
-
 
         public async Task<ServiceResponse<List<IcedDrinksModel>>> GetIcedDrinks()
         {
@@ -32,16 +31,17 @@ namespace APICoffeeTaste.Service.BebidasGeladasService
             }
             return serviceResponse;
         }
-        public async Task<ServiceResponse<List<IcedDrinksModel>>> GetIcedDrinksById(int id)
+        public async Task<ServiceResponse<IcedDrinksModel>> GetIcedDrinksById(int id)
         {
-            ServiceResponse<List<IcedDrinksModel>> serviceResponse = new ServiceResponse<List<IcedDrinksModel>>();
+            ServiceResponse<IcedDrinksModel> serviceResponse = new ServiceResponse<IcedDrinksModel>();
             try
             {
-                List<IcedDrinksModel> IcedDrink = _context.IcedDrinks.Where(x => x.Id == id).ToList();
-                if (IcedDrink.Count == 0)
+                IcedDrinksModel IcedDrink = _context.IcedDrinks.Include(i => i.Ingredientes).FirstOrDefault(x => x.Id == id);
+                if (IcedDrink == null)
                 {
                     serviceResponse.Mensagem = "Not found!";
                 }
+                serviceResponse.Dados = IcedDrink;
             }
             catch (Exception ex)
             {
@@ -92,14 +92,48 @@ namespace APICoffeeTaste.Service.BebidasGeladasService
             }
             return serviceResponse;
         }
-
-        public Task<ServiceResponse<List<IcedDrinksModel>>> DeleteBebidasGeladas()
+        public async Task<ServiceResponse<List<IcedDrinksModel>>> UpdateIcedDrinks(IcedDrinksModel updateIcedDrink)
         {
-            throw new NotImplementedException();
+            ServiceResponse<List<IcedDrinksModel>> serviceResponse = new ServiceResponse<List<IcedDrinksModel>>();
+            try 
+            {
+                IcedDrinksModel updateIcedDrinksModel =  _context.IcedDrinks.AsNoTracking().FirstOrDefault(i => i.Id == updateIcedDrink.Id);
+                if(updateIcedDrinksModel == null ){
+                    serviceResponse.Mensagem = "Not Found!";
+                    serviceResponse.Sucesso = true;
+                }
+                _context.IcedDrinks.Update(updateIcedDrinksModel);
+                await _context.SaveChangesAsync();
+                serviceResponse.Dados = _context.IcedDrinks.ToList();
+            }
+            catch(Exception ex)
+            {
+                serviceResponse.Mensagem = ex.Message;
+                serviceResponse.Sucesso = false;
+            }
+            return serviceResponse;
         }
-        public Task<ServiceResponse<List<IcedDrinksModel>>> UpdateBebidasGeladas()
+        public async Task<ServiceResponse<List<IcedDrinksModel>>> DeleteBebidasGeladas(int id)
         {
-            throw new NotImplementedException();
+            ServiceResponse<List<IcedDrinksModel>> serviceResponse = new ServiceResponse<List<IcedDrinksModel>>();
+            try 
+            {
+                IcedDrinksModel deleteIcedDrink = _context.IcedDrinks.FirstOrDefault(x => x.Id == id);
+                if(deleteIcedDrink == null) 
+                {
+                    serviceResponse.Mensagem = "Not Found!";
+                    serviceResponse.Sucesso = true;
+                }
+                _context.IcedDrinks.Remove(deleteIcedDrink);
+                await _context.SaveChangesAsync();
+                serviceResponse.Dados = _context.IcedDrinks.ToList();
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Mensagem = ex.Message;
+                serviceResponse.Sucesso = false;
+            }
+            return serviceResponse;
         }
         public async Task<ServiceResponse<List<IngredientsIcedDrinksModel>>> GetIngredientsByIcedDrinks(int id)
         {
