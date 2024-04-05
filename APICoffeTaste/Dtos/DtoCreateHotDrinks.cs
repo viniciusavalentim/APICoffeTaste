@@ -6,6 +6,6 @@ namespace APICoffeeTaste.Dtos
     {
         public string? Name { get; set; }
         public string? Observacoes { get; set; }
-        public List<IngredientsModel>? Ingredientes { get; set; }
+        public List<IngredientsIcedDrinksModel>? Ingredientes { get; set; }
     }
 }

@@ -17,11 +17,11 @@ namespace APICoffeeTaste.Service.HotDrinksService
             ServiceResponse<List<HotDrinksModel>> serviceResponse = new ServiceResponse<List<HotDrinksModel>>();
             try
             {
-                serviceResponse.Dados = await _context.HotDrinks.Include(b => b.Ingredientes).ToListAsync();
-                if (serviceResponse.Dados.Count == 0)
-                {
-                    serviceResponse.Mensagem = "Nenhum dado foi encontrado!";
-                }
+                //serviceResponse.Dados = await _context.HotDrinks.Include(b => b.Ingredientes).ToListAsync();
+                //if (serviceResponse.Dados.Count == 0)
+                //{
+                //    serviceResponse.Mensagem = "Nenhum dado foi encontrado!";
+                //}
             }
             catch (Exception ex)
             {
@@ -46,19 +46,19 @@ namespace APICoffeeTaste.Service.HotDrinksService
             throw new NotImplementedException();
         }
 
-        public async Task<ServiceResponse<List<IngredientsModel>>> GetIngredientByHotDrinksID(int id)
+        public async Task<ServiceResponse<List<IngredientsIcedDrinksModel>>> GetIngredientByHotDrinksID(int id)
         {
-            ServiceResponse<List<IngredientsModel>> serviceResponse = new ServiceResponse<List<IngredientsModel>>();
+            ServiceResponse<List<IngredientsIcedDrinksModel>> serviceResponse = new ServiceResponse<List<IngredientsIcedDrinksModel>>();
             try
             {
-                List<IngredientsModel> ingredientes = _context.Ingredientes.Where(x => x.HotDrinksId == id).ToList();
+                //List<IngredientsIcedDrinksModel> ingredientes = _context.Ingredientes.Where(x => x.HotDrinksId == id).ToList();
 
-                if (ingredientes == null)
-                {
-                    serviceResponse.Mensagem = "Nenhum dado foi encontrado";
-                }
+                //if (ingredientes == null)
+                //{
+                //    serviceResponse.Mensagem = "Nenhum dado foi encontrado";
+                //}
 
-                serviceResponse.Dados = ingredientes;
+                //serviceResponse.Dados = ingredientes;
             }
             catch (Exception ex)
             {

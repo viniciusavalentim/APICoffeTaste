@@ -16,7 +16,7 @@ namespace APICoffeeTaste.Service.BebidasGeladasService
 
         public async Task<ServiceResponse<List<IcedDrinksModel>>> GetIcedDrinks()
         {
-           ServiceResponse<List<IcedDrinksModel>> serviceResponse = new ServiceResponse<List<IcedDrinksModel>>();
+            ServiceResponse<List<IcedDrinksModel>> serviceResponse = new ServiceResponse<List<IcedDrinksModel>>();
             try
             {
                 serviceResponse.Dados = await _context.IcedDrinks.Include(b => b.Ingredientes).ToListAsync();
@@ -38,56 +38,56 @@ namespace APICoffeeTaste.Service.BebidasGeladasService
             try
             {
                 List<IcedDrinksModel> IcedDrink = _context.IcedDrinks.Where(x => x.Id == id).ToList();
-                if(IcedDrink.Count == 0)
+                if (IcedDrink.Count == 0)
                 {
                     serviceResponse.Mensagem = "Not found!";
                 }
             }
-            catch (Exception ex) 
-            { 
+            catch (Exception ex)
+            {
                 serviceResponse.Sucesso = false;
-                serviceResponse.Mensagem = ex.Message; 
+                serviceResponse.Mensagem = ex.Message;
             }
             return serviceResponse;
         }
         public async Task<ServiceResponse<List<IcedDrinksModel>>> CreateIcedDrinks(DtoCreateIcedDrinks icedDrinkCeate)
         {
             ServiceResponse<List<IcedDrinksModel>> serviceResponse = new ServiceResponse<List<IcedDrinksModel>>();
-            try 
+            try
             {
-                IcedDrinksModel newIcedDrink = new IcedDrinksModel{ 
+                IcedDrinksModel newIcedDrink = new IcedDrinksModel
+                {
                     Name = icedDrinkCeate.Name
                 };
 
-                List<IngredientsModel> newIngredients = new List<IngredientsModel>();
+                List<IngredientsIcedDrinksModel> newIngredients = new List<IngredientsIcedDrinksModel>();
 
-                foreach(DtoCreateIngredients dtoIngredient in icedDrinkCeate.Ingredientes)
+                foreach (DtoCreateIngredients dtoIngredient in icedDrinkCeate.Ingredientes)
                 {
-                    IngredientsModel newIngredient = new IngredientsModel
+                    IngredientsIcedDrinksModel newIngredient = new IngredientsIcedDrinksModel
                     {
                         Name = dtoIngredient.Name,
                         Quantity = dtoIngredient.Quantity,
-                        Unit = dtoIngredient.Unit,
-                        IcedDrinks = newIcedDrink
+                        Unit = dtoIngredient.Unit
                     };
 
                     newIngredients.Add(newIngredient);
-                    _context.Ingredientes.Add(newIngredient);
+                    _context.IngredientesIcedDrinks.Add(newIngredient);
                 }
 
                 newIcedDrink.Ingredientes = newIngredients;
-                if(newIcedDrink == null)
+                if (newIcedDrink == null)
                 {
                     serviceResponse.Mensagem = "Not Found!";
                 }
 
                 _context.IcedDrinks.Add(newIcedDrink);
                 await _context.SaveChangesAsync();
-                serviceResponse.Dados = await _context.IcedDrinks.Include(i => i.Ingredientes).ToListAsync();   
+                serviceResponse.Dados = await _context.IcedDrinks.Include(i => i.Ingredientes).ToListAsync();
             }
             catch (Exception ex)
             {
-                serviceResponse.Sucesso = false;
+                serviceResponse.Sucesso = true;
                 serviceResponse.Mensagem = ex.Message;
             }
             return serviceResponse;
@@ -101,12 +101,12 @@ namespace APICoffeeTaste.Service.BebidasGeladasService
         {
             throw new NotImplementedException();
         }
-        public async Task<ServiceResponse<List<IngredientsModel>>> GetIngredientsByIcedDrinks(int id)
+        public async Task<ServiceResponse<List<IngredientsIcedDrinksModel>>> GetIngredientsByIcedDrinks(int id)
         {
-            ServiceResponse<List<IngredientsModel>> serviceResponse = new ServiceResponse<List<IngredientsModel>>();
+            ServiceResponse<List<IngredientsIcedDrinksModel>> serviceResponse = new ServiceResponse<List<IngredientsIcedDrinksModel>>();
             try
             {
-                List<IngredientsModel> ingredientes =  _context.Ingredientes.Where(x => x.IcedDrinksId == id).ToList();
+                List<IngredientsIcedDrinksModel> ingredientes = _context.IngredientesIcedDrinks.Where(x => x.IcedDrinksId == id).ToList();
 
                 if (ingredientes == null)
                 {

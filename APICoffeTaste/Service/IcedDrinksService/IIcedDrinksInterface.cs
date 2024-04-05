@@ -10,6 +10,6 @@ namespace APICoffeeTaste.Service.BebidasGeladasService
         Task<ServiceResponse<List<IcedDrinksModel>>> UpdateBebidasGeladas();
         Task<ServiceResponse<List<IcedDrinksModel>>> DeleteBebidasGeladas();
         Task<ServiceResponse<List<IcedDrinksModel>>> GetIcedDrinksById(int id);
-        Task<ServiceResponse<List<IngredientsModel>>> GetIngredientsByIcedDrinks(int id);
+        Task<ServiceResponse<List<IngredientsIcedDrinksModel>>> GetIngredientsByIcedDrinks(int id);
     }
 }
