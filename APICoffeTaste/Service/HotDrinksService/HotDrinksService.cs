@@ -17,11 +17,11 @@ namespace APICoffeeTaste.Service.HotDrinksService
             ServiceResponse<List<HotDrinksModel>> serviceResponse = new ServiceResponse<List<HotDrinksModel>>();
             try
             {
-                //serviceResponse.Dados = await _context.HotDrinks.Include(b => b.Ingredientes).ToListAsync();
-                //if (serviceResponse.Dados.Count == 0)
-                //{
-                //    serviceResponse.Mensagem = "Nenhum dado foi encontrado!";
-                //}
+                serviceResponse.Dados = await _context.HotDrinks.Include(b => b.Ingredientes).ToListAsync();
+                if (serviceResponse.Dados.Count == 0)
+                {
+                    serviceResponse.Mensagem = "Nenhum dado foi encontrado!";
+                }
             }
             catch (Exception ex)
             {
