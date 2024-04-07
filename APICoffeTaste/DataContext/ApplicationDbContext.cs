@@ -13,6 +13,9 @@ namespace APICoffeeTaste.DataContext
         public DbSet<IcedDrinksModel> IcedDrinks { get; set; }
         public DbSet<HotDrinksModel> HotDrinks { get; set; }
         public DbSet<IngredientsIcedDrinksModel> IngredientesIcedDrinks { get; set; }
+        public DbSet<IngredientsHotDrinksModel> IngredientesHotDrinks { get; set; }
+
+
 
 
     }

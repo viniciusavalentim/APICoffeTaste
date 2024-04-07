@@ -12,7 +12,6 @@ namespace APICoffeeTaste.Service.IcedDrinksService
         {
             _context = context;
         }
-
         public async Task<ServiceResponse<List<IcedDrinksModel>>> GetIcedDrinks()
         {
             ServiceResponse<List<IcedDrinksModel>> serviceResponse = new ServiceResponse<List<IcedDrinksModel>>();
@@ -48,6 +47,28 @@ namespace APICoffeeTaste.Service.IcedDrinksService
                 serviceResponse.Sucesso = false;
                 serviceResponse.Mensagem = ex.Message;
             }
+            return serviceResponse;
+        }
+        public async Task<ServiceResponse<List<IngredientsIcedDrinksModel>>> GetIngredientsByIcedDrinks(int id)
+        {
+            ServiceResponse<List<IngredientsIcedDrinksModel>> serviceResponse = new ServiceResponse<List<IngredientsIcedDrinksModel>>();
+            try
+            {
+                List<IngredientsIcedDrinksModel> ingredientes = _context.IngredientesIcedDrinks.Where(x => x.IcedDrinksId == id).ToList();
+
+                if (ingredientes == null)
+                {
+                    serviceResponse.Mensagem = "Nenhum dado foi encontrado";
+                }
+
+                serviceResponse.Dados = ingredientes;
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Mensagem = ex.Message;
+                serviceResponse.Sucesso = false;
+            }
+
             return serviceResponse;
         }
         public async Task<ServiceResponse<List<IcedDrinksModel>>> CreateIcedDrinks(DtoCreateIcedDrinks icedDrinkCeate)
@@ -102,7 +123,7 @@ namespace APICoffeeTaste.Service.IcedDrinksService
                     serviceResponse.Mensagem = "Not Found!";
                     serviceResponse.Sucesso = true;
                 }
-                _context.IcedDrinks.Update(updateIcedDrinksModel);
+                _context.IcedDrinks.Update(updateIcedDrink);
                 await _context.SaveChangesAsync();
                 serviceResponse.Dados = _context.IcedDrinks.ToList();
             }
@@ -133,28 +154,6 @@ namespace APICoffeeTaste.Service.IcedDrinksService
                 serviceResponse.Mensagem = ex.Message;
                 serviceResponse.Sucesso = false;
             }
-            return serviceResponse;
-        }
-        public async Task<ServiceResponse<List<IngredientsIcedDrinksModel>>> GetIngredientsByIcedDrinks(int id)
-        {
-            ServiceResponse<List<IngredientsIcedDrinksModel>> serviceResponse = new ServiceResponse<List<IngredientsIcedDrinksModel>>();
-            try
-            {
-                List<IngredientsIcedDrinksModel> ingredientes = _context.IngredientesIcedDrinks.Where(x => x.IcedDrinksId == id).ToList();
-
-                if (ingredientes == null)
-                {
-                    serviceResponse.Mensagem = "Nenhum dado foi encontrado";
-                }
-
-                serviceResponse.Dados = ingredientes;
-            }
-            catch (Exception ex)
-            {
-                serviceResponse.Mensagem = ex.Message;
-                serviceResponse.Sucesso = false;
-            }
-
             return serviceResponse;
         }
     }
