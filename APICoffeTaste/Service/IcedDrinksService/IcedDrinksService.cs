@@ -68,7 +68,6 @@ namespace APICoffeeTaste.Service.IcedDrinksService
                 serviceResponse.Mensagem = ex.Message;
                 serviceResponse.Sucesso = false;
             }
-
             return serviceResponse;
         }
         public async Task<ServiceResponse<List<IcedDrinksModel>>> CreateIcedDrinks(DtoCreateIcedDrinks icedDrinkCeate)

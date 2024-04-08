@@ -5,6 +5,9 @@ using APICoffeeTaste.Service.HotDrinksService;
 using APICoffeeTaste.Service.MetodosService;
 using APICoffeeTaste.Service.ReceitaService;
 using Microsoft.EntityFrameworkCore;
+using APICoffeeTaste.Service.CoffeeSprintsService;
+using APICoffeeTaste.Service.SoftDrinksService;
+using APICoffeeTaste.Service.TeasService;
 
 namespace APICoffeeTaste
 {
@@ -21,10 +24,14 @@ namespace APICoffeeTaste
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
             builder.Services.AddScoped<IMetodosInterface, MetodosService>();//quando eu quiser fazer uma injeção de dependencia da minha interface, significa que eu vou poder usar os metodos do "metodosService"
-            builder.Services.AddScoped<ICafesInterface, CafesService>();//quando eu quiser fazer uma injeção de dependencia da minha interface, significa que eu vou poder usar os metodos do "metodosService"
-            builder.Services.AddScoped<IReceitaInteface, ReceitaService>();//quando eu quiser fazer uma injeção de dependencia da minha interface, significa que eu vou poder usar os metodos do "metodosService"
-            builder.Services.AddScoped<IIcedDrinksInterface, IcedDrinksService>();//quando eu quiser fazer uma injeção de dependencia da minha interface, significa que eu vou poder usar os metodos do "metodosService"
-            builder.Services.AddScoped<IHotDrinksInterface, HotDrinksService>();//quando eu quiser fazer uma injeção de dependencia da minha interface, significa que eu vou poder usar os metodos do "metodosService"
+            builder.Services.AddScoped<ICafesInterface, CafesService>();
+            builder.Services.AddScoped<IReceitaInteface, ReceitaService>();
+            builder.Services.AddScoped<IIcedDrinksInterface, IcedDrinksService>();
+            builder.Services.AddScoped<IHotDrinksInterface, HotDrinksService>();
+            builder.Services.AddScoped<ICoffeeSprintsInterface, CoffeeSprintsService>();
+            builder.Services.AddScoped<ISoftDrinksInterface, SoftDrinksService>();
+            builder.Services.AddScoped<ITeasInterface, TeasService>();
+
 
 
 
