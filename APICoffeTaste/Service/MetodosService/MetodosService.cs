@@ -15,7 +15,6 @@ namespace APICoffeeTaste.Service.MetodosService
         {
             _context = context;
         }
-
         
         public async Task<ServiceResponse<List<MetodosModel>>> GetMetodos() //preciso criar um elemento do tipo service response que vai retornar uma lista de metodos
         {
@@ -47,6 +46,7 @@ namespace APICoffeeTaste.Service.MetodosService
                 };
                 // Lista para armazenar os cafés criados
                 var cafes = new List<CafesModel>();
+
                 foreach (var cafeDto in metodo.Cafes)
                 {
                     var novoCafe = new CafesModel

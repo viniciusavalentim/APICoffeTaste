@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace APICoffeeTaste.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240321103832_CriacaoBebidasGeladasRelacao")]
-    partial class CriacaoBebidasGeladasRelacao
+    [Migration("20240405121433_UpdateNameIngredientsIcedDrinks")]
+    partial class UpdateNameIngredientsIcedDrinks
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -22,25 +22,6 @@ namespace APICoffeeTaste.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("APICoffeeTaste.Models.BebidasGeladasModel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Nome")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Observacoes")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("BebidasGeladas");
-                });
 
             modelBuilder.Entity("APICoffeeTaste.Models.CafesModel", b =>
                 {
@@ -63,7 +44,7 @@ namespace APICoffeeTaste.Migrations
                     b.ToTable("Cafes");
                 });
 
-            modelBuilder.Entity("APICoffeeTaste.Models.IngredientesModel", b =>
+            modelBuilder.Entity("APICoffeeTaste.Models.HotDrinksModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -71,20 +52,61 @@ namespace APICoffeeTaste.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<int>("BebidasGeladasId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Nome")
+                    b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Unidade")
+                    b.Property<string>("Observacoes")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BebidasGeladasId");
+                    b.ToTable("HotDrinks");
+                });
 
-                    b.ToTable("Ingredientes");
+            modelBuilder.Entity("APICoffeeTaste.Models.IcedDrinksModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Observacoes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("IcedDrinks");
+                });
+
+            modelBuilder.Entity("APICoffeeTaste.Models.IngredientsIcedDrinksModel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("IcedDrinksId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Quantity")
+                        .HasColumnType("float");
+
+                    b.Property<string>("Unit")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IcedDrinksId");
+
+                    b.ToTable("IngredientesIcedDrinks");
                 });
 
             modelBuilder.Entity("APICoffeeTaste.Models.MetodosModel", b =>
@@ -145,15 +167,15 @@ namespace APICoffeeTaste.Migrations
                     b.Navigation("Metodo");
                 });
 
-            modelBuilder.Entity("APICoffeeTaste.Models.IngredientesModel", b =>
+            modelBuilder.Entity("APICoffeeTaste.Models.IngredientsIcedDrinksModel", b =>
                 {
-                    b.HasOne("APICoffeeTaste.Models.BebidasGeladasModel", "BebidasGeladas")
+                    b.HasOne("APICoffeeTaste.Models.IcedDrinksModel", "IcedDrinks")
                         .WithMany("Ingredientes")
-                        .HasForeignKey("BebidasGeladasId")
+                        .HasForeignKey("IcedDrinksId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("BebidasGeladas");
+                    b.Navigation("IcedDrinks");
                 });
 
             modelBuilder.Entity("APICoffeeTaste.Models.ReceitasModel", b =>
@@ -167,14 +189,14 @@ namespace APICoffeeTaste.Migrations
                     b.Navigation("Cafe");
                 });
 
-            modelBuilder.Entity("APICoffeeTaste.Models.BebidasGeladasModel", b =>
-                {
-                    b.Navigation("Ingredientes");
-                });
-
             modelBuilder.Entity("APICoffeeTaste.Models.CafesModel", b =>
                 {
                     b.Navigation("Receita");
+                });
+
+            modelBuilder.Entity("APICoffeeTaste.Models.IcedDrinksModel", b =>
+                {
+                    b.Navigation("Ingredientes");
                 });
 
             modelBuilder.Entity("APICoffeeTaste.Models.MetodosModel", b =>
