@@ -13,6 +13,48 @@ namespace APICoffeeTaste.Service.TeasService
             _context = context;
         }
 
+        public async Task<ServiceResponse<List<IngredientsTeasModel>>> CreateIngredients(DtoCreateIngredients createIngredient, int id)
+        {
+            ServiceResponse<List<IngredientsTeasModel>> serviceResponse = new ServiceResponse<List<IngredientsTeasModel>>();
+            try
+            {
+                var tea = await _context.Teas.Include(m => m.Ingredientes).FirstOrDefaultAsync(m => m.Id == id);
+
+
+                if (tea == null)
+                {
+                    serviceResponse.Dados = null;
+                    serviceResponse.Mensagem = "Método não encontrado";
+                    serviceResponse.Sucesso = false;
+                    return serviceResponse;
+                }
+
+                List<IngredientsTeasModel> ingredients = new List<IngredientsTeasModel>();
+
+
+                var newIngredient = new IngredientsTeasModel
+                {
+                    Name = createIngredient.Name,
+                    Quantity = createIngredient.Quantity,
+                    Unit = createIngredient.Unit
+                };
+
+                ingredients.Add(newIngredient);
+                _context.IngredientsTeas.Add(newIngredient);
+                // Associa a lista de cafés ao método
+                tea?.Ingredientes?.AddRange(ingredients);
+                await _context.SaveChangesAsync();
+                serviceResponse.Dados = tea?.Ingredientes?.ToList();
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Mensagem = ex.Message;
+                serviceResponse.Sucesso = false;
+            }
+
+            return serviceResponse;
+        }
+
         public async Task<ServiceResponse<List<TeasModel>>> CreateTeas(DtoCreateTeas CreateTea)
         {
             ServiceResponse<List<TeasModel>> serviceResponse = new ServiceResponse<List<TeasModel>>();

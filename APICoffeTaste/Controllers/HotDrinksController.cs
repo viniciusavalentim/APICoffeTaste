@@ -3,6 +3,7 @@ using APICoffeeTaste.Models;
 using APICoffeeTaste.Service.HotDrinksService;
 using APICoffeeTaste.Service.IcedDrinksService;
 using APICoffeeTaste.Service.MetodosService;
+using APICoffeeTaste.Service.TeasService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -40,6 +41,11 @@ namespace APICoffeeTaste.Controllers
         public async Task<ActionResult<ServiceResponse<List<HotDrinksModel>>>> CreateIcedDrinks(DtoCreateHotDrinks newIcedDrink)
         {
             return Ok(await _hotDrinksInterface.CreateHotDrinks(newIcedDrink));
+        }
+        [HttpPost("{hotDrinkId}")]
+        public async Task<ActionResult<ServiceResponse<List<TeasModel>>>> CreateTea(int hotDrinkId, DtoCreateIngredients newIngredient)
+        {
+            return Ok(await _hotDrinksInterface.CreateIngredients(newIngredient, hotDrinkId));
         }
 
         [HttpPut]
