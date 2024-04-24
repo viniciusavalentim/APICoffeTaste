@@ -157,5 +157,48 @@ namespace APICoffeeTaste.Service.HotDrinksService
             }
             return serviceResponse;
         }
+
+        public async Task<ServiceResponse<List<IngredientsHotDrinksModel>>> CreateIngredients(DtoCreateIngredients createIngredient, int id)
+        {
+            ServiceResponse<List<IngredientsHotDrinksModel>> serviceResponse = new ServiceResponse<List<IngredientsHotDrinksModel>>();
+            try
+            {
+                var hotDrinks = await _context.HotDrinks.Include(m => m.Ingredientes).FirstOrDefaultAsync(m => m.Id == id);
+
+
+                if (hotDrinks == null)
+                {
+                    serviceResponse.Dados = null;
+                    serviceResponse.Mensagem = "Método não encontrado";
+                    serviceResponse.Sucesso = false;
+                    return serviceResponse;
+                }
+
+                List<IngredientsHotDrinksModel> ingredients = new List<IngredientsHotDrinksModel>();
+
+
+                var newIngredient = new IngredientsHotDrinksModel
+                {
+                    Name = createIngredient.Name,
+                    Quantity = createIngredient.Quantity,
+                    Unit = createIngredient.Unit
+                };
+
+                ingredients.Add(newIngredient);
+                _context.IngredientesHotDrinks.Add(newIngredient);
+                // Associa a lista de cafés ao método
+                hotDrinks?.Ingredientes?.AddRange(ingredients);
+                await _context.SaveChangesAsync();
+                serviceResponse.Dados = hotDrinks?.Ingredientes?.ToList();
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Mensagem = ex.Message;
+                serviceResponse.Sucesso = false;
+            }
+
+            return serviceResponse;
+        }
+
     }
 }

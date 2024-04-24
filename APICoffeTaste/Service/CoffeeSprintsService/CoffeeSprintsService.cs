@@ -56,6 +56,47 @@ namespace APICoffeeTaste.Service.CoffeeSprintsService
             }
             return serviceResponse;
         }
+        public async Task<ServiceResponse<List<IngredientsCoffeeSprintsModel>>> CreateIngredients(DtoCreateIngredients createIngredient, int id)
+        {
+            ServiceResponse<List<IngredientsCoffeeSprintsModel>> serviceResponse = new ServiceResponse<List<IngredientsCoffeeSprintsModel>>();
+            try
+            {
+                var coffeeSprint = await _context.CoffeeSprints.Include(m => m.Ingredientes).FirstOrDefaultAsync(m => m.Id == id);
+
+
+                if (coffeeSprint == null)
+                {
+                    serviceResponse.Dados = null;
+                    serviceResponse.Mensagem = "Método não encontrado";
+                    serviceResponse.Sucesso = false;
+                    return serviceResponse;
+                }
+
+                List<IngredientsCoffeeSprintsModel> ingredients = new List<IngredientsCoffeeSprintsModel>();
+
+
+                var newIngredient = new IngredientsCoffeeSprintsModel
+                {
+                    Name = createIngredient.Name,
+                    Quantity = createIngredient.Quantity,
+                    Unit = createIngredient.Unit
+                };
+
+                ingredients.Add(newIngredient);
+                _context.IngredientsCoffeeSprints.Add(newIngredient);
+                // Associa a lista de cafés ao método
+                coffeeSprint?.Ingredientes?.AddRange(ingredients);
+                await _context.SaveChangesAsync();
+                serviceResponse.Dados = coffeeSprint?.Ingredientes?.ToList();
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Mensagem = ex.Message;
+                serviceResponse.Sucesso = false;
+            }
+
+            return serviceResponse;
+        }
 
         public async Task<ServiceResponse<List<CoffeeSprintsModel>>> DeleteCoffeeSprints(int id)
         {

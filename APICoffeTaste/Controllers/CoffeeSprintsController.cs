@@ -42,6 +42,12 @@ namespace APICoffeeTaste.Controllers
             return Ok(await _coffeeSprintInterface.CreateCoffeeSprints(newCoffeeSprints));
         }
 
+        [HttpPost("{id}")]
+        public async Task<ActionResult<ServiceResponse<List<TeasModel>>>> CreateTea(int id, DtoCreateIngredients newIngredient)
+        {
+            return Ok(await _coffeeSprintInterface.CreateIngredients(newIngredient, id));
+        }
+
         [HttpPut]
         public async Task<ActionResult<ServiceResponse<List<CoffeeSprintsModel>>>> UpdateCoffeeSprints(CoffeeSprintsModel coffeeSprints)
         {
