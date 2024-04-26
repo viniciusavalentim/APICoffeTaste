@@ -77,7 +77,9 @@ namespace APICoffeeTaste.Service.IcedDrinksService
             {
                 IcedDrinksModel newIcedDrink = new IcedDrinksModel
                 {
-                    Name = icedDrinkCeate.Name
+                    Name = icedDrinkCeate.Name,
+                    Observacoes = icedDrinkCeate.Observacoes
+                    
                 };
 
                 List<IngredientsIcedDrinksModel> newIngredients = new List<IngredientsIcedDrinksModel>();
