@@ -9,6 +9,7 @@ namespace APICoffeeTaste.Service.IcedDrinksService
         Task<ServiceResponse<List<IcedDrinksModel>>> CreateIcedDrinks(DtoCreateIcedDrinks icedDrinkCeate);
         Task<ServiceResponse<List<IcedDrinksModel>>> UpdateIcedDrinks(IcedDrinksModel updateIcedDrink);
         Task<ServiceResponse<List<IcedDrinksModel>>> DeleteBebidasGeladas(int id);
+        Task<ServiceResponse<IngredientsIcedDrinksModel>> DeleteIngredient(int id); 
         Task<ServiceResponse<IcedDrinksModel>> GetIcedDrinksById(int id);
         Task<ServiceResponse<List<IngredientsIcedDrinksModel>>> GetIngredientsByIcedDrinks(int id);
         Task<ServiceResponse<List<IngredientsIcedDrinksModel>>> CreateIngredients(DtoCreateIngredients createIngredient, int id);

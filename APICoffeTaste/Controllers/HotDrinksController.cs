@@ -54,10 +54,15 @@ namespace APICoffeeTaste.Controllers
             return Ok(await _hotDrinksInterface.UpdateHotDrinks(icedDrink));
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<ActionResult<ServiceResponse<List<HotDrinksModel>>>> DeleteIcedDrinks(int id)
         {
             return Ok(await _hotDrinksInterface.DeleteHotDrinks(id));
+        }
+        [HttpDelete("DeleteIngredient/{id}")]
+        public async Task<ActionResult<ServiceResponse<IngredientsHotDrinksModel>>> DeleteIngredient(int id)
+        {
+            return Ok(await _hotDrinksInterface.DeleteIngredient(id));
         }
     }
 }

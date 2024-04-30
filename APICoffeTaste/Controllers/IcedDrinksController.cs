@@ -19,7 +19,7 @@ namespace APICoffeeTaste.Controllers
         [HttpGet]
         public async Task<ActionResult<ServiceResponse<List<IcedDrinksModel>>>> GetBebidasGeladas()
         {
-            return Ok( await _IcedDrinksInterface.GetIcedDrinks());
+            return Ok(await _IcedDrinksInterface.GetIcedDrinks());
         }
 
         [HttpGet("ByIcedId/{drinkId}")]
@@ -41,7 +41,7 @@ namespace APICoffeeTaste.Controllers
         }
 
         [HttpPost("{id}")]
-        public async Task<ActionResult<ServiceResponse<List<TeasModel>>>> CreateTea(int id, DtoCreateIngredients newIngredient)
+        public async Task<ActionResult<ServiceResponse<List<IcedDrinksModel>>>> CreateIcedDrinl(int id, DtoCreateIngredients newIngredient)
         {
             return Ok(await _IcedDrinksInterface.CreateIngredients(newIngredient, id));
         }
@@ -52,10 +52,16 @@ namespace APICoffeeTaste.Controllers
             return Ok(await _IcedDrinksInterface.UpdateIcedDrinks(icedDrink));
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<ActionResult<ServiceResponse<List<IcedDrinksModel>>>> DeleteIcedDrinks(int id)
         {
             return Ok(await _IcedDrinksInterface.DeleteBebidasGeladas(id));
+        }
+
+        [HttpDelete("DeleteIngredient/{id}")]
+        public async Task<ActionResult<ServiceResponse<IngredientsIcedDrinksModel>>> DeleteIngredient(int id)
+        {
+            return Ok(await _IcedDrinksInterface.DeleteIngredient(id));
         }
     }
 }
