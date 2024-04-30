@@ -77,7 +77,9 @@ namespace APICoffeeTaste.Service.IcedDrinksService
             {
                 IcedDrinksModel newIcedDrink = new IcedDrinksModel
                 {
-                    Name = icedDrinkCeate.Name
+                    Name = icedDrinkCeate.Name,
+                    Observacoes = icedDrinkCeate.Observacoes
+                    
                 };
 
                 List<IngredientsIcedDrinksModel> newIngredients = new List<IngredientsIcedDrinksModel>();
@@ -147,6 +149,28 @@ namespace APICoffeeTaste.Service.IcedDrinksService
                 _context.IcedDrinks.Remove(deleteIcedDrink);
                 await _context.SaveChangesAsync();
                 serviceResponse.Dados = _context.IcedDrinks.ToList();
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Mensagem = ex.Message;
+                serviceResponse.Sucesso = false;
+            }
+            return serviceResponse;
+        }
+        public async Task<ServiceResponse<IngredientsIcedDrinksModel>> DeleteIngredient(int id)
+        {
+            ServiceResponse<IngredientsIcedDrinksModel> serviceResponse = new ServiceResponse<IngredientsIcedDrinksModel>();
+            try
+            {
+                IngredientsIcedDrinksModel deleteIngredient = _context.IngredientesIcedDrinks.FirstOrDefault(x => x.Id == id);
+                if (deleteIngredient == null)
+                {
+                    serviceResponse.Mensagem = "Not Found!";
+                    serviceResponse.Sucesso = true;
+                }
+                _context.IngredientesIcedDrinks.Remove(deleteIngredient);
+                await _context.SaveChangesAsync();
+                serviceResponse.Dados = deleteIngredient;
             }
             catch (Exception ex)
             {

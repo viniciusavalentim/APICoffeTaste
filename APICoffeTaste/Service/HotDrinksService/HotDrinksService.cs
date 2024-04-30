@@ -157,7 +157,28 @@ namespace APICoffeeTaste.Service.HotDrinksService
             }
             return serviceResponse;
         }
-
+        public async Task<ServiceResponse<IngredientsHotDrinksModel>> DeleteIngredient(int id)
+        {
+            ServiceResponse<IngredientsHotDrinksModel> serviceResponse = new ServiceResponse<IngredientsHotDrinksModel>();
+            try
+            {
+                IngredientsHotDrinksModel deleteIngredient = _context.IngredientesHotDrinks.FirstOrDefault(x => x.Id == id);
+                if (deleteIngredient == null)
+                {
+                    serviceResponse.Mensagem = "Not Found!";
+                    serviceResponse.Sucesso = true;
+                }
+                _context.IngredientesHotDrinks.Remove(deleteIngredient);
+                await _context.SaveChangesAsync();
+                serviceResponse.Dados = deleteIngredient;
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Mensagem = ex.Message;
+                serviceResponse.Sucesso = false;
+            }
+            return serviceResponse;
+        }
         public async Task<ServiceResponse<List<IngredientsHotDrinksModel>>> CreateIngredients(DtoCreateIngredients createIngredient, int id)
         {
             ServiceResponse<List<IngredientsHotDrinksModel>> serviceResponse = new ServiceResponse<List<IngredientsHotDrinksModel>>();
