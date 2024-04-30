@@ -40,19 +40,13 @@ namespace APICoffeeTaste.Controllers
             return Ok(await _IcedDrinksInterface.CreateIcedDrinks(newIcedDrink));
         }
 
-        [HttpPost("{id}")]
-        public async Task<ActionResult<ServiceResponse<List<TeasModel>>>> CreateTea(int id, DtoCreateIngredients newIngredient)
-        {
-            return Ok(await _IcedDrinksInterface.CreateIngredients(newIngredient, id));
-        }
-
         [HttpPut]
         public async Task<ActionResult<ServiceResponse<List<IcedDrinksModel>>>> UpdateIcedDrinks(IcedDrinksModel icedDrink)
         {
             return Ok(await _IcedDrinksInterface.UpdateIcedDrinks(icedDrink));
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<ActionResult<ServiceResponse<List<IcedDrinksModel>>>> DeleteIcedDrinks(int id)
         {
             return Ok(await _IcedDrinksInterface.DeleteBebidasGeladas(id));
