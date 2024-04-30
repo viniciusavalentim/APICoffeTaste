@@ -41,7 +41,7 @@ namespace APICoffeeTaste.Controllers
         }
 
         [HttpPost("{id}")]
-        public async Task<ActionResult<ServiceResponse<List<IcedDrinksModel>>>> CreateIcedDrinl(int id, DtoCreateIngredients newIngredient)
+        public async Task<ActionResult<ServiceResponse<List<IcedDrinksModel>>>> CreateIngredient(int id, DtoCreateIngredients newIngredient)
         {
             return Ok(await _IcedDrinksInterface.CreateIngredients(newIngredient, id));
         }

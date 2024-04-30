@@ -97,7 +97,6 @@ namespace APICoffeeTaste.Service.CoffeeSprintsService
 
             return serviceResponse;
         }
-
         public async Task<ServiceResponse<List<CoffeeSprintsModel>>> DeleteCoffeeSprints(int id)
         {
             ServiceResponse<List<CoffeeSprintsModel>> serviceResponse = new ServiceResponse<List<CoffeeSprintsModel>>();
@@ -120,7 +119,28 @@ namespace APICoffeeTaste.Service.CoffeeSprintsService
             }
             return serviceResponse;
         }
-
+        public async Task<ServiceResponse<IngredientsCoffeeSprintsModel>> DeleteIngredient(int id)
+        {
+            ServiceResponse<IngredientsCoffeeSprintsModel> serviceResponse = new ServiceResponse<IngredientsCoffeeSprintsModel>();
+            try
+            {
+                IngredientsCoffeeSprintsModel deleteIngredient = _context.IngredientsCoffeeSprints.FirstOrDefault(x => x.Id == id);
+                if (deleteIngredient == null)
+                {
+                    serviceResponse.Mensagem = "Not Found!";
+                    serviceResponse.Sucesso = true;
+                }
+                _context.IngredientsCoffeeSprints.Remove(deleteIngredient);
+                await _context.SaveChangesAsync();
+                serviceResponse.Dados = deleteIngredient;
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Mensagem = ex.Message;
+                serviceResponse.Sucesso = false;
+            }
+            return serviceResponse;
+        }
         public async Task<ServiceResponse<List<CoffeeSprintsModel>>> GetCoffeeSprints()
         {
             ServiceResponse<List<CoffeeSprintsModel>> serviceResponse = new ServiceResponse<List<CoffeeSprintsModel>>();
@@ -139,7 +159,6 @@ namespace APICoffeeTaste.Service.CoffeeSprintsService
             }
             return serviceResponse;
         }
-
         public async Task<ServiceResponse<CoffeeSprintsModel>> GetCoffeeSprintsById(int id)
         {
             ServiceResponse<CoffeeSprintsModel> serviceResponse = new ServiceResponse<CoffeeSprintsModel>();
@@ -159,7 +178,6 @@ namespace APICoffeeTaste.Service.CoffeeSprintsService
             }
             return serviceResponse;
         }
-
         public async Task<ServiceResponse<List<IngredientsCoffeeSprintsModel>>> GetIngredientsByCoffeeSprintId(int id)
         {
             ServiceResponse<List<IngredientsCoffeeSprintsModel>> serviceResponse = new ServiceResponse<List<IngredientsCoffeeSprintsModel>>();
@@ -182,7 +200,6 @@ namespace APICoffeeTaste.Service.CoffeeSprintsService
 
             return serviceResponse;
         }
-
         public async Task<ServiceResponse<List<CoffeeSprintsModel>>> UpdateCoffeeSprints(CoffeeSprintsModel updateCofeeSprints)
         {
             ServiceResponse<List<CoffeeSprintsModel>> serviceResponse = new ServiceResponse<List<CoffeeSprintsModel>>();

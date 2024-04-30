@@ -1,6 +1,7 @@
 ﻿using APICoffeeTaste.Dtos;
 using APICoffeeTaste.Models;
 using APICoffeeTaste.Service.HotDrinksService;
+using APICoffeeTaste.Service.IcedDrinksService;
 using APICoffeeTaste.Service.TeasService;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -53,10 +54,16 @@ namespace APICoffeeTaste.Controllers
             return Ok(await _teasInterface.UpdateTeas(tea));
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public async Task<ActionResult<ServiceResponse<List<TeasModel>>>> DeleteTea(int id)
         {
             return Ok(await _teasInterface.DeleteTea(id));
+        }
+
+        [HttpDelete("DeleteIngredient/{id}")]
+        public async Task<ActionResult<ServiceResponse<IngredientsTeasModel>>> DeleteIngredient(int id)
+        {
+            return Ok(await _teasInterface.DeleteIngredient(id));
         }
 
     }

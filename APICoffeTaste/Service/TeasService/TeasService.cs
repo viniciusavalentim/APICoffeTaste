@@ -54,7 +54,6 @@ namespace APICoffeeTaste.Service.TeasService
 
             return serviceResponse;
         }
-
         public async Task<ServiceResponse<List<TeasModel>>> CreateTeas(DtoCreateTeas CreateTea)
         {
             ServiceResponse<List<TeasModel>> serviceResponse = new ServiceResponse<List<TeasModel>>();
@@ -97,7 +96,6 @@ namespace APICoffeeTaste.Service.TeasService
             }
             return serviceResponse;
         }
-
         public async Task<ServiceResponse<List<TeasModel>>> DeleteTea(int id)
         {
             ServiceResponse<List<TeasModel>> serviceResponse = new ServiceResponse<List<TeasModel>>();
@@ -120,7 +118,28 @@ namespace APICoffeeTaste.Service.TeasService
             }
             return serviceResponse;
         }
-
+        public async Task<ServiceResponse<IngredientsTeasModel>> DeleteIngredient(int id)
+        {
+            ServiceResponse<IngredientsTeasModel> serviceResponse = new ServiceResponse<IngredientsTeasModel>();
+            try
+            {
+                IngredientsTeasModel deleteIngredient = _context.IngredientsTeas.FirstOrDefault(x => x.Id == id);
+                if (deleteIngredient == null)
+                {
+                    serviceResponse.Mensagem = "Not Found!";
+                    serviceResponse.Sucesso = true;
+                }
+                _context.IngredientsTeas.Remove(deleteIngredient);
+                await _context.SaveChangesAsync();
+                serviceResponse.Dados = deleteIngredient;
+            }
+            catch (Exception ex)
+            {
+                serviceResponse.Mensagem = ex.Message;
+                serviceResponse.Sucesso = false;
+            }
+            return serviceResponse;
+        }
         public async Task<ServiceResponse<List<IngredientsTeasModel>>> GetIngredientsByTea(int id)
         {
             ServiceResponse<List<IngredientsTeasModel>> serviceResponse = new ServiceResponse<List<IngredientsTeasModel>>();
@@ -143,7 +162,6 @@ namespace APICoffeeTaste.Service.TeasService
 
             return serviceResponse;
         }
-
         public async Task<ServiceResponse<TeasModel>> GetTeaById(int id)
         {
             ServiceResponse<TeasModel> serviceResponse = new ServiceResponse<TeasModel>();
@@ -163,7 +181,6 @@ namespace APICoffeeTaste.Service.TeasService
             }
             return serviceResponse;
         }
-
         public async Task<ServiceResponse<List<TeasModel>>> GetTeas()
         {
             ServiceResponse<List<TeasModel>> serviceResponse = new ServiceResponse<List<TeasModel>>();
@@ -182,7 +199,6 @@ namespace APICoffeeTaste.Service.TeasService
             }
             return serviceResponse;
         }
-
         public async Task<ServiceResponse<List<TeasModel>>> UpdateTeas(TeasModel updateTea)
         {
             ServiceResponse<List<TeasModel>> serviceResponse = new ServiceResponse<List<TeasModel>>();
